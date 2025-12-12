@@ -105,11 +105,25 @@ body {
 .hero {
     margin-top: 80px;
     padding: 4rem 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
     color: white;
     min-height: 90vh;
     display: flex;
     align-items: center;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 70% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .hero-content {
@@ -117,6 +131,8 @@ body {
     grid-template-columns: 1fr 2fr;
     gap: 3rem;
     align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
 .hero-image {
@@ -129,13 +145,15 @@ body {
     height: 250px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #1a1a1a;
 }
 
 .profile-photo:hover {
     transform: scale(1.05);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
 .hero-text h1 {
@@ -347,13 +365,49 @@ body {
 .card-header {
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-bottom: 1rem;
+    position: relative;
 }
 
-.card-header h3 {
+.company-logo {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.company-logo:hover .logo-img {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
+}
+
+.card-header-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.card-header-content h3 {
     font-size: 1.3rem;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
+    text-align: center;
 }
 
 .company {
@@ -363,7 +417,30 @@ body {
     margin-bottom: 0.25rem;
 }
 
-.card-header .date {
+.company-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.company-link:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.company-link svg {
+    opacity: 0.7;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.company-link:hover svg {
+    opacity: 1;
+    transform: translate(2px, -2px);
+}
+
+.card-header-content .date {
     color: var(--text-light);
     font-size: 0.9rem;
 }
@@ -372,6 +449,64 @@ body {
     color: var(--text-light);
     margin-bottom: 1rem;
     font-style: italic;
+}
+
+.social-links-inline {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.social-link-inline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    color: #2c3e50;
+    text-decoration: none;
+    border: none;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    background: transparent;
+    padding: 0.5rem;
+}
+
+.social-link-inline:hover {
+    color: #1a1a1a;
+    background: transparent;
+    transform: translateY(-2px);
+}
+
+.social-link-inline svg {
+    flex-shrink: 0;
+    stroke: currentColor;
+    filter: grayscale(100%);
+    width: 28px;
+    height: 28px;
+}
+
+.social-link-inline:hover svg {
+    filter: grayscale(0%);
+}
+
+.phone-link {
+    position: relative;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.phone-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #2c3e50;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+    line-height: 1;
 }
 
 .card-list {
@@ -511,6 +646,22 @@ body {
     font-size: 1.1rem;
 }
 
+.personal-social-links {
+    margin: 3rem 0 2rem 0;
+    text-align: center;
+}
+
+.personal-social-links h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.personal-social-links .social-links-inline {
+    justify-content: center;
+    margin-top: 1rem;
+}
+
 .contact-item strong {
     color: var(--primary-color);
     display: block;
@@ -619,6 +770,11 @@ body {
     .skills-grid,
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+
+    .company-logo {
+        width: 80px;
+        height: 80px;
     }
 
     .timeline {
